@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using api.Data;
 using api.Dtos;
 using api.mapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Update.Internal;
 
 namespace api.Controllers
@@ -21,16 +23,17 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var cusinfos = _context.cusInfos.ToList()
-            .Select(s => s.ToCusDto());
+            var cusinfos = await _context.cusInfos.ToListAsync();
+            var cusDto = cusinfos.Select(s => s.ToCusDto());
             return Ok(cusinfos);
         }
+
         [HttpGet("{id}")]
-        public IActionResult GetById([FromRoute] int id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var cusinfos = _context.cusInfos.Find(id);
+            var cusinfos = await _context.cusInfos.FindAsync(id);
 
             if(cusinfos == null)
             {
@@ -40,18 +43,18 @@ namespace api.Controllers
             return Ok(cusinfos.ToCusDto());
         }
         [HttpPost]
-        public IActionResult Create([FromBody] CreateCusinfoRequestDto CusDtos)
+        public async Task<IActionResult> Create([FromBody] CreateCusinfoRequestDto CusDtos)
         {
             var cusModel = CusDtos.TocusinfoFromCreateDto();
-            _context.cusInfos.Add(cusModel);
-            _context.SaveChanges();
+            await _context.cusInfos.AddAsync(cusModel);
+            await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetById), new{ id = cusModel.Id}, cusModel.ToCusDto());
         }
         [HttpPut]
         [Route("{id}")]
-        public IActionResult Update([FromRoute] int id, [FromBody] UpdateCusinfoRequestDto updateDto)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCusinfoRequestDto updateDto)
         {
-            var cusModel = _context.cusInfos.FirstOrDefault(x => x.Id == id);
+            var cusModel = await _context.cusInfos.FirstOrDefaultAsync(x => x.Id == id);
             
             if (cusModel == null)
             {
@@ -63,14 +66,14 @@ namespace api.Controllers
             cusModel.email = updateDto.email;
             cusModel.PhoneNo = updateDto.PhoneNo;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Ok(cusModel.ToCusDto());
         }
         [HttpDelete]
         [Route("{id}")]
-        public IActionResult Delete ([FromRoute] int id)
+        public async Task<IActionResult> Delete ([FromRoute] int id)
         {
-            var cusModel = _context.cusInfos.FirstOrDefault(x => x.Id == id);
+            var cusModel = await _context.cusInfos.FirstOrDefaultAsync(x => x.Id == id);
 
             if (cusModel == null)
             {
@@ -78,7 +81,7 @@ namespace api.Controllers
             }
 
             _context.cusInfos.Remove(cusModel);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return NoContent();
         }
