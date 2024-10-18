@@ -27,9 +27,9 @@ namespace api.Controllers
         {
             var cusinfos = await _context.cusInfos.ToListAsync();
             var cusDto = cusinfos.Select(s => s.ToCusDto());
-            return Ok(cusinfos);
+            return Ok(cusDto);
         }
-
+        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
