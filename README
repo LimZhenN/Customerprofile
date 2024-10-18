@@ -1,0 +1,32 @@
+This a macos version for mssql
+SQL Server Connection String Template (WINDOWS):  
+
+"Data Source=localhost\\SQLEXPRESS;Initial Catalog=CustomerInfo;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+
+Azure Edge Connection String Template (MAC OS ARM):
+"Data Source=localhost;Initial Catalog=CustomerInfo;User Id=sa;Password=Limzn010119;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=false"
+
+i using the docker and Azure Data studio to connect to mssql
+if you also using macos and cannot use mssql
+you may follow this video
+https://www.youtube.com/watch?v=3BFxALltQaM&t=685s
+you need to download docker and Azure Data Studio
+
+first step 
+cd customer-profile-screen
+npm install axios react-router-dom formik yup
+
+second
+cd CustomerProfileApi
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Design
+
+split 2 terminal
+first run the command 
+cd api
+donet watch run
+
+second run the command
+cd customer-profile-screen
+npm start
+
