@@ -9,6 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add CORS support
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
@@ -19,6 +20,7 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Configure the database context
 builder.Services.AddDbContext<ApplicationDBContext> (options => { 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });

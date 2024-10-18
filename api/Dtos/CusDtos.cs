@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace api.Dtos
 {
+    // This DTO (Data Transfer Object) represents the customer information
+    // It's used for sending data between the client and the server
     public class CusDtos
     {
         public int Id {get; set;}

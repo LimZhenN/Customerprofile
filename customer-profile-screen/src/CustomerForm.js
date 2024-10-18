@@ -8,14 +8,14 @@ const CustomerForm = ({ customer, onSubmit }) => {
     firstName: customer?.firstName || '',
     lastName: customer?.lastName || '',
     email: customer?.email || '',
-    phoneNumber: customer?.phoneNumber || ''
+    phoneNo: customer?.phoneNumber || ''
   };
 
   const validationSchema = Yup.object({
     firstName: Yup.string().required('First name is required'),
     lastName: Yup.string().required('Last name is required'),
     email: Yup.string().email('Invalid email address').required('Email is required'),
-    phoneNumber: Yup.string().matches(/^\d{10}$/, 'Phone number must be 10 digits')
+    phoneNo: Yup.string().matches(/^\d{10}$/, 'Phone number must be 10 digits')
   });
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
@@ -51,8 +51,8 @@ const CustomerForm = ({ customer, onSubmit }) => {
               <ErrorMessage name="email" component="div" className="error" />
             </div>
             <div>
-              <label htmlFor="phoneNumber">Phone Number</label>
-              <Field type="text" name="phoneNumber" />
+              <label htmlFor="phoneNo">Phone Number</label>
+              <Field type="text" name="phoneNo" />
               <ErrorMessage name="phoneNumber" component="div" className="error" />
             </div>
             <button type="submit" disabled={isSubmitting}>

@@ -7,8 +7,10 @@ using api.Models;
 
 namespace api.mapper
 {
+    // This static class provides mapping methods between CusInfo model and DTOs
     public static class CusMapper
     {
+        // Converts a CusInfo model to a CusDtos (Data Transfer Object)
         public static CusDtos ToCusDto(this CusInfo cusModel)
         {
             return new CusDtos
@@ -20,6 +22,7 @@ namespace api.mapper
                 PhoneNo = cusModel.PhoneNo
             };
         }
+        // Converts a CreateCusinfoRequestDto to a CusInfo model
         public static CusInfo TocusinfoFromCreateDto(this CreateCusinfoRequestDto cusDto)
         {
             return new CusInfo

@@ -15,7 +15,7 @@ namespace api.Controllers
     [Route("api/CusInfo")]
     [ApiController]
     public class CusInfoControllers: ControllerBase
-    {
+    {       
         private readonly ApplicationDBContext _context;
         public CusInfoControllers(ApplicationDBContext context)
         {
@@ -25,11 +25,14 @@ namespace api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            // Retrieve all customers from the database
             var cusinfos = await _context.cusInfos.ToListAsync();
+            // Convert the customer models to DTOs
             var cusDto = cusinfos.Select(s => s.ToCusDto());
+            // Return the DTOs with a 200 OK status
             return Ok(cusDto);
         }
-        
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
