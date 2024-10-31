@@ -8,7 +8,7 @@ const CustomerForm = ({ customer, onSubmit }) => {
     firstName: customer?.firstName || '',
     lastName: customer?.lastName || '',
     email: customer?.email || '',
-    phoneNo: customer?.phoneNumber || ''
+    phoneNo: customer?.phoneNo || ''
   };
 
   const validationSchema = Yup.object({
@@ -53,7 +53,7 @@ const CustomerForm = ({ customer, onSubmit }) => {
             <div>
               <label htmlFor="phoneNo">Phone Number</label>
               <Field type="text" name="phoneNo" />
-              <ErrorMessage name="phoneNumber" component="div" className="error" />
+              <ErrorMessage name="phoneNo" component="div" className="error" />
             </div>
             <button type="submit" disabled={isSubmitting}>
               {customer ? 'Update' : 'Add'} Customer
